@@ -11,3 +11,159 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum UserRole {
+  CHAIRPERSON
+  MEMBER
+  SECRETARY
+}
+
+enum DocumentStatus {
+  DRAFT
+  PENDING_SIGNATURES
+  SIGNED
+  ARCHIVED
+}
+
+enum SignerStatus {
+  PENDING
+  SIGNED
+  DECLINED
+}
+
+enum AuditAction {
+  DOCUMENT_UPLOADED
+  DOCUMENT_ASSIGNED
+  DOCUMENT_VIEWED
+  SIGNATURE_CREATED
+  SIGNATURE_VERIFIED
+  DOCUMENT_DOWNLOADED
+}
+
+model User {
+  id           String   @id @default(uuid())
+  fullName     String
+  email        String   @unique
+  passwordHash String
+  role         UserRole
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  documentsUploaded Document[]       @relation("DocumentUploader")
+  documentsToSign   DocumentSigner[]
+  signatures        Signature[]
+  signingKeys       SigningKey[]
+  auditLogs         AuditLog[]
+}
+
+model Document {
+  id    String @id @default(uuid())
+  title String
+
+  originalFileUrl String
+  signedFileUrl   String?
+
+  status DocumentStatus @default(DRAFT)
+
+  uploadedById String
+
+  uploadedBy User @relation("DocumentUploader", fields: [uploadedById], references: [id])
+
+  signers    DocumentSigner[]
+  signatures Signature[]
+  auditLogs  AuditLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DocumentSigner {
+  id String @id @default(uuid())
+
+  documentId String
+  userId     String
+
+  status SignerStatus @default(PENDING)
+
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id])
+
+  signature Signature?
+
+  createdAt DateTime @default(now())
+  signedAt  DateTime?
+
+  @@unique([documentId, userId])
+}
+
+model Signature {
+  id String @id @default(uuid())
+
+  documentId       String
+  documentSignerId String
+  signerId         String
+  signingKeyId     String
+
+  signatureImageUrl String
+
+  documentHash  String
+  signatureValue String
+  algorithm      String
+
+  signedAt DateTime @default(now())
+
+  document Document @relation(fields: [documentId], references: [id])
+
+  documentSigner DocumentSigner @relation(fields: [documentSignerId], references: [id])
+
+  signer User @relation(fields: [signerId], references: [id])
+
+  signingKey SigningKey @relation(fields: [signingKeyId], references: [id])
+
+  @@unique([documentSignerId])
+}
+
+model SigningKey {
+  id String @id @default(uuid())
+
+  userId String
+
+  keyId String @unique
+
+  publicKey String
+
+  algorithm String
+
+  certificateUrl String?
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  revokedAt DateTime?
+
+  user User @relation(fields: [userId], references: [id])
+
+  signatures Signature[]
+}
+
+model AuditLog {
+  id String @id @default(uuid())
+
+  userId     String
+  documentId String
+
+  action AuditAction
+
+  metadata Json?
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  document Document @relation(fields: [documentId], references: [id])
+
+  @@index([documentId])
+  @@index([userId])
+}
