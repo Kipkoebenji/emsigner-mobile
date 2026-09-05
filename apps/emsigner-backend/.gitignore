@@ -61,3 +61,4 @@ Thumbs.db
 !.vscode/extensions.json
 *.sublime-workspace
 *.sublime-project
+/src/generated/prisma
