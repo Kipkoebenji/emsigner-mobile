@@ -1,17 +1,19 @@
-
 services:
   postgres:
     image: postgres:16-alpine
     container_name: ktda
     restart: always
+
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgrespassword
       POSTGRES_DB: app_db
+
     ports:
       - "5432:5432"
+
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - ktda_pgdata:/var/lib/postgresql/data
 
 volumes:
-  pgdata:
+  ktda_pgdata:
