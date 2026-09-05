@@ -1,0 +1,63 @@
+# Dependencies & Package Managers
+node_modules/
+.pnpm-store/
+jspm_packages/
+
+# Environment Variables & Credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Build & Compiled Output
+dist/
+build/
+out/
+.next/
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Docker & Database
+pgdata/
+*.sqlite
+*.sqlite-journal
+
+# Mobile / React Native / Expo
+.expo/
+.expo-shared/
+web-build/
+
+# iOS
+ios/Pods/
+ios/build/
+*.xcworkspace
+!default.xcworkspace
+*.xcuserdata
+
+# Android
+android/app/build/
+android/.gradle/
+android/build/
+*.keystore
+!debug.keystore
+
+# Operating System & IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.sublime-workspace
+*.sublime-project
