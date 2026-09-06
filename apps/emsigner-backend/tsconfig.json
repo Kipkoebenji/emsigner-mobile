@@ -3,22 +3,21 @@
     "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "rootDir": "./src",
+    "rootDir": ".",
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    
-    
-    "noUnusedLocals": true,      
-    "noUnusedParameters": true,    
-    "noImplicitReturns": true,    
-    "resolveJsonModule": true,     
-    "sourceMap": true,             
-    "removeComments": true,        
-    "allowSyntheticDefaultImports": true 
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "lib/**/*"],
   "exclude": ["node_modules", "dist", "prisma"]
 }
