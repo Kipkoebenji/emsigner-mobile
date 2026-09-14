@@ -1,7 +1,7 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation } from "@tanstack/react-query";
 
-import api from '@/services/api';
-import { tokenService } from '@/services/token.service';
+import api from "@/services/api";
+import { tokenService } from "@/services/token.service";
 
 export interface LoginInput {
   email: string;
@@ -14,7 +14,7 @@ export interface AuthResponse {
 }
 
 async function login(input: LoginInput): Promise<AuthResponse> {
-  const { data } = await api.post<AuthResponse>('/auth/login', input);
+  const { data } = await api.post<AuthResponse>("/auth/login", input);
 
   if (data.refresh_token) {
     await tokenService.setTokens(data.access_token, data.refresh_token);
