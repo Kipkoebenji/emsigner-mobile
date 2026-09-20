@@ -15,7 +15,7 @@
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "^11.1.2",
+      "version": "^12.5.1",
       "onFail": "download"
     }
   },
@@ -37,5 +37,6 @@
     "jose": "^6.2.11",
     "nodemon": "^3.1.14",
     "pg": "^8.23.0"
-  }
+  },
+  "packageManager": "pnpm@12.5.1"
 }
