@@ -1,10 +1,10 @@
 import { SignJWT } from "jose";
 import { prisma } from "../../../lib/prisma.js";
-import { UserRole } from "../../../generated/prisma/enums.js";
+import type { UserRole } from "../../../generated/prisma/enums.js";
 import { env } from "../../config/env.js";
 import { hashPassword, verifyPassword } from "../../utils/password.js";
 import type {
-  CreateUserInput,
+  AssignRoleInput,
   LoginInput,
   RegisterInput,
 } from "./auth.types.js";
@@ -21,7 +21,7 @@ const tokenFor = async (user: {
   id: string;
   fullName: string;
   email: string;
-  role: UserRole;
+  role: UserRole | null;
 }) =>
   new SignJWT({ email: user.email, fullName: user.fullName, role: user.role })
     .setProtectedHeader({ alg: "HS256", typ: "JWT" })
@@ -30,22 +30,44 @@ const tokenFor = async (user: {
     .setExpirationTime(env.JWT_EXPIRES_IN)
     .sign(secret);
 
-const createUser = async (input: CreateUserInput) => {
+const createUser = async (input: RegisterInput) => {
   const user = await prisma.user.create({
     data: {
-      ...input,
+      fullName: input.fullName,
       email: input.email.toLowerCase(),
       passwordHash: await hashPassword(input.password),
+      role: null,
     },
     select: publicUser,
   });
+
   return { user, accessToken: await tokenFor(user) };
 };
 
-export const register = (input: RegisterInput) =>
-  createUser({ ...input, role: UserRole.MEMBER });
+export const register = (input: RegisterInput) => createUser(input);
 
-export const createManagedUser = (input: CreateUserInput) => createUser(input);
+export const assignRole = async ({ email, role }: AssignRoleInput) => {
+  try {
+    const user = await prisma.user.update({
+      where: { email: email.toLowerCase() },
+      data: { role },
+      select: publicUser,
+    });
+    return { user };
+  } catch (error: unknown) {
+    if (
+      error &&
+      typeof error === "object" &&
+      "code" in error &&
+      error.code === "P2025"
+    ) {
+      const notFound = new Error("Registered user not found");
+      Object.assign(notFound, { statusCode: 404 });
+      throw notFound;
+    }
+    throw error;
+  }
+};
 
 export const login = async ({ email, password }: LoginInput) => {
   const user = await prisma.user.findUnique({
