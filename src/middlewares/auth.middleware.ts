@@ -18,7 +18,7 @@ export const authenticate: RequestHandler = async (req, res, next) => {
       typeof payload.sub !== "string" ||
       typeof payload.email !== "string" ||
       typeof payload.fullName !== "string" ||
-      typeof payload.role !== "string"
+      (payload.role !== null && typeof payload.role !== "string")
     ) {
       res.status(401).json({ message: "Invalid access token" });
       return;
@@ -28,7 +28,7 @@ export const authenticate: RequestHandler = async (req, res, next) => {
       id: payload.sub,
       email: payload.email,
       fullName: payload.fullName,
-      role: payload.role as UserRole,
+      role: payload.role as UserRole | null,
     };
     next();
   } catch {
@@ -39,7 +39,7 @@ export const authenticate: RequestHandler = async (req, res, next) => {
 export const authorize =
   (...roles: UserRole[]): RequestHandler =>
   (req, res, next) => {
-    if (!req.user || !roles.includes(req.user.role)) {
+    if (!req.user || !req.user.role || !roles.includes(req.user.role)) {
       res.status(403).json({ message: "Insufficient permissions" });
       return;
     }

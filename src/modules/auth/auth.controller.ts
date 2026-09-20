@@ -13,6 +13,6 @@ export const me: RequestHandler = async (req, res) => {
   res.json({ user: await authService.getCurrentUser(req.user!.id) });
 };
 
-export const createUser: RequestHandler = async (req, res) => {
-  res.status(201).json(await authService.createManagedUser(req.body));
+export const assignRole: RequestHandler = async (req, res) => {
+  res.json(await authService.assignRole(req.body));
 };

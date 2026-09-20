@@ -1,6 +1,6 @@
 import type { RequestHandler } from "express";
 import type {
-  CreateUserInput,
+  AssignRoleInput,
   LoginInput,
   RegisterInput,
 } from "./auth.types.js";
@@ -30,12 +30,10 @@ export const validateRegistration: RequestHandler = (req, res, next) => {
     typeof body.fullName !== "string" ||
     body.fullName.trim().length < 2
   ) {
-    res
-      .status(400)
-      .json({
-        message:
-          "fullName, a valid email, and a password of 8-128 characters are required",
-      });
+    res.status(400).json({
+      message:
+        "fullName, a valid email, and a password of 8-128 characters are required",
+    });
     return;
   }
   req.body = {
@@ -47,40 +45,29 @@ export const validateRegistration: RequestHandler = (req, res, next) => {
 
 export const validateLogin: RequestHandler = (req, res, next) => {
   if (!validateCredentials(req.body)) {
-    res
-      .status(400)
-      .json({
-        message:
-          "A valid email and a password of 8-128 characters are required",
-      });
+    res.status(400).json({
+      message: "A valid email and a password of 8-128 characters are required",
+    });
     return;
   }
   next();
 };
 
-export const validateCreateUser: RequestHandler = (req, res, next) => {
-  const body = validateCredentials(req.body);
+export const validateAssignRole: RequestHandler = (req, res, next) => {
+  const body = req.body;
   const validRole =
-    body &&
-    "role" in req.body &&
-    ["CHAIRPERSON", "SECRETARY", "MEMBER"].includes(req.body.role);
-  if (
-    !body ||
-    !("fullName" in body) ||
-    typeof body.fullName !== "string" ||
-    !validRole
-  ) {
-    res
-      .status(400)
-      .json({
-        message: "fullName, email, password, and a valid role are required",
-      });
+    isRecord(body) &&
+    typeof body.role === "string" &&
+    ["CHAIRPERSON", "SECRETARY", "MEMBER"].includes(body.role);
+  if (!isRecord(body) || typeof body.email !== "string" || !validRole) {
+    res.status(400).json({
+      message: "email and a valid role are required",
+    });
     return;
   }
   req.body = {
-    ...body,
-    fullName: body.fullName.trim(),
-    role: req.body.role,
-  } satisfies CreateUserInput;
+    email: body.email.toLowerCase().trim(),
+    role: body.role as AssignRoleInput["role"],
+  } satisfies AssignRoleInput;
   next();
 };

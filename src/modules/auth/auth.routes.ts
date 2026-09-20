@@ -2,7 +2,7 @@ import { Router } from "express";
 import { authenticate, authorize } from "../../middlewares/auth.middleware.js";
 import * as controller from "./auth.controller.js";
 import {
-  validateCreateUser,
+  validateAssignRole,
   validateLogin,
   validateRegistration,
 } from "./auth.validation.js";
@@ -121,8 +121,8 @@ router.get("/me", authenticate, controller.me);
  * @openapi
  * /api/auth/users:
  *   post:
- *     summary: Create a managed user
- *     description: Create a new user account. Requires the CHAIRPERSON role.
+ *     summary: Assign a role to a registered user
+ *     description: Assign or update a registered user's role. Requires the CHAIRPERSON role.
  *     tags:
  *       - Authentication
  *     security:
@@ -132,14 +132,14 @@ router.get("/me", authenticate, controller.me);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/CreateUserRequest'
+ *             $ref: '#/components/schemas/AssignRoleRequest'
  *     responses:
- *       "201":
- *         description: Managed user created successfully
+ *       "200":
+ *         description: Role assigned successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/AuthResponse'
+ *               $ref: '#/components/schemas/CurrentUserResponse'
  *       "400":
  *         description: Validation failed
  *         content:
@@ -148,6 +148,12 @@ router.get("/me", authenticate, controller.me);
  *               $ref: '#/components/schemas/ErrorResponse'
  *       "403":
  *         description: Insufficient permissions
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       "404":
+ *         description: Registered user not found
  *         content:
  *           application/json:
  *             schema:
@@ -163,8 +169,8 @@ router.post(
   "/users",
   authenticate,
   authorize("CHAIRPERSON"),
-  validateCreateUser,
-  controller.createUser,
+  validateAssignRole,
+  controller.assignRole,
 );
 
 export default router;

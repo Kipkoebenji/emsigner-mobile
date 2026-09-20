@@ -49,7 +49,7 @@ const swaggerOptions: swaggerJSDoc.Options = {
 
         User: {
           type: "object",
-          required: ["id", "fullName", "email", "role"],
+          required: ["id", "fullName", "email"],
           properties: {
             id: {
               type: "string",
@@ -67,8 +67,9 @@ const swaggerOptions: swaggerJSDoc.Options = {
             },
             role: {
               type: "string",
+              nullable: true,
               enum: ["CHAIRPERSON", "SECRETARY", "MEMBER"],
-              example: "MEMBER",
+              example: null,
             },
           },
         },
@@ -80,19 +81,19 @@ const swaggerOptions: swaggerJSDoc.Options = {
             fullName: {
               type: "string",
               minLength: 2,
-              example: "Jane Doe",
+              example: "Benwil Kiprotich",
             },
             email: {
               type: "string",
               format: "email",
-              example: "jane.doe@example.com",
+              example: "benwil@gmail.com",
             },
             password: {
               type: "string",
               minLength: 8,
               maxLength: 128,
               format: "password",
-              example: "password123",
+              example: "12345678",
             },
           },
         },
@@ -116,26 +117,14 @@ const swaggerOptions: swaggerJSDoc.Options = {
           },
         },
 
-        CreateUserRequest: {
+        AssignRoleRequest: {
           type: "object",
-          required: ["fullName", "email", "password", "role"],
+          required: ["email", "role"],
           properties: {
-            fullName: {
-              type: "string",
-              minLength: 2,
-              example: "John Smith",
-            },
             email: {
               type: "string",
               format: "email",
-              example: "john.smith@example.com",
-            },
-            password: {
-              type: "string",
-              minLength: 8,
-              maxLength: 128,
-              format: "password",
-              example: "password123",
+              example: "jane.doe@example.com",
             },
             role: {
               type: "string",

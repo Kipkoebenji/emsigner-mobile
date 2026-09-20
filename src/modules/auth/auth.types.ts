@@ -6,7 +6,10 @@ export type RegisterInput = {
   password: string;
 };
 
-export type CreateUserInput = RegisterInput & { role: UserRole };
+export type AssignRoleInput = {
+  email: string;
+  role: UserRole;
+};
 
 export type LoginInput = {
   email: string;
