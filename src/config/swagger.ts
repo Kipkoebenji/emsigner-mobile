@@ -58,12 +58,12 @@ const swaggerOptions: swaggerJSDoc.Options = {
             },
             fullName: {
               type: "string",
-              example: "Jane Doe",
+              example: "Benjamin Kipkoech",
             },
             email: {
               type: "string",
               format: "email",
-              example: "jane.doe@example.com",
+              example: "benjikorir@gmail.com",
             },
             role: {
               type: "string",
@@ -104,14 +104,14 @@ const swaggerOptions: swaggerJSDoc.Options = {
             email: {
               type: "string",
               format: "email",
-              example: "jane.doe@example.com",
+              example: "benjikorir@gmail.com",
             },
             password: {
               type: "string",
               minLength: 8,
               maxLength: 128,
               format: "password",
-              example: "password123",
+              example: "12345678*",
             },
           },
         },
