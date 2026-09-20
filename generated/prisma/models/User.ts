@@ -164,7 +164,7 @@ export type UserGroupByOutputType = {
   fullName: string
   email: string
   passwordHash: string
-  role: $Enums.UserRole
+  role: $Enums.UserRole | null
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -195,7 +195,7 @@ export type UserWhereInput = {
   fullName?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
   passwordHash?: Prisma.StringFilter<"User"> | string
-  role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
+  role?: Prisma.EnumUserRoleNullableFilter<"User"> | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   documentsUploaded?: Prisma.DocumentListRelationFilter
@@ -210,7 +210,7 @@ export type UserOrderByWithRelationInput = {
   fullName?: Prisma.SortOrder
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
-  role?: Prisma.SortOrder
+  role?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   documentsUploaded?: Prisma.DocumentOrderByRelationAggregateInput
@@ -228,7 +228,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   fullName?: Prisma.StringFilter<"User"> | string
   passwordHash?: Prisma.StringFilter<"User"> | string
-  role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
+  role?: Prisma.EnumUserRoleNullableFilter<"User"> | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   documentsUploaded?: Prisma.DocumentListRelationFilter
@@ -243,7 +243,7 @@ export type UserOrderByWithAggregationInput = {
   fullName?: Prisma.SortOrder
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
-  role?: Prisma.SortOrder
+  role?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -259,7 +259,7 @@ export type UserScalarWhereWithAggregatesInput = {
   fullName?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
-  role?: Prisma.EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
+  role?: Prisma.EnumUserRoleNullableWithAggregatesFilter<"User"> | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -269,7 +269,7 @@ export type UserCreateInput = {
   fullName: string
   email: string
   passwordHash: string
-  role: $Enums.UserRole
+  role?: $Enums.UserRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   documentsUploaded?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
@@ -284,7 +284,7 @@ export type UserUncheckedCreateInput = {
   fullName: string
   email: string
   passwordHash: string
-  role: $Enums.UserRole
+  role?: $Enums.UserRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   documentsUploaded?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
@@ -299,7 +299,7 @@ export type UserUpdateInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   documentsUploaded?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
@@ -314,7 +314,7 @@ export type UserUncheckedUpdateInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   documentsUploaded?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -329,7 +329,7 @@ export type UserCreateManyInput = {
   fullName: string
   email: string
   passwordHash: string
-  role: $Enums.UserRole
+  role?: $Enums.UserRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -339,7 +339,7 @@ export type UserUpdateManyMutationInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -349,7 +349,7 @@ export type UserUncheckedUpdateManyInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -393,8 +393,8 @@ export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
-export type EnumUserRoleFieldUpdateOperationsInput = {
-  set?: $Enums.UserRole
+export type NullableEnumUserRoleFieldUpdateOperationsInput = {
+  set?: $Enums.UserRole | null
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -476,7 +476,7 @@ export type UserCreateWithoutDocumentsUploadedInput = {
   fullName: string
   email: string
   passwordHash: string
-  role: $Enums.UserRole
+  role?: $Enums.UserRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   documentsToSign?: Prisma.DocumentSignerCreateNestedManyWithoutUserInput
@@ -490,7 +490,7 @@ export type UserUncheckedCreateWithoutDocumentsUploadedInput = {
   fullName: string
   email: string
   passwordHash: string
-  role: $Enums.UserRole
+  role?: $Enums.UserRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   documentsToSign?: Prisma.DocumentSignerUncheckedCreateNestedManyWithoutUserInput
@@ -520,7 +520,7 @@ export type UserUpdateWithoutDocumentsUploadedInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   documentsToSign?: Prisma.DocumentSignerUpdateManyWithoutUserNestedInput
@@ -534,7 +534,7 @@ export type UserUncheckedUpdateWithoutDocumentsUploadedInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   documentsToSign?: Prisma.DocumentSignerUncheckedUpdateManyWithoutUserNestedInput
@@ -548,7 +548,7 @@ export type UserCreateWithoutDocumentsToSignInput = {
   fullName: string
   email: string
   passwordHash: string
-  role: $Enums.UserRole
+  role?: $Enums.UserRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   documentsUploaded?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
@@ -562,7 +562,7 @@ export type UserUncheckedCreateWithoutDocumentsToSignInput = {
   fullName: string
   email: string
   passwordHash: string
-  role: $Enums.UserRole
+  role?: $Enums.UserRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   documentsUploaded?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
@@ -592,7 +592,7 @@ export type UserUpdateWithoutDocumentsToSignInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   documentsUploaded?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
@@ -606,7 +606,7 @@ export type UserUncheckedUpdateWithoutDocumentsToSignInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   documentsUploaded?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -620,7 +620,7 @@ export type UserCreateWithoutSignaturesInput = {
   fullName: string
   email: string
   passwordHash: string
-  role: $Enums.UserRole
+  role?: $Enums.UserRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   documentsUploaded?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
@@ -634,7 +634,7 @@ export type UserUncheckedCreateWithoutSignaturesInput = {
   fullName: string
   email: string
   passwordHash: string
-  role: $Enums.UserRole
+  role?: $Enums.UserRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   documentsUploaded?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
@@ -664,7 +664,7 @@ export type UserUpdateWithoutSignaturesInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   documentsUploaded?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
@@ -678,7 +678,7 @@ export type UserUncheckedUpdateWithoutSignaturesInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   documentsUploaded?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -692,7 +692,7 @@ export type UserCreateWithoutSigningKeysInput = {
   fullName: string
   email: string
   passwordHash: string
-  role: $Enums.UserRole
+  role?: $Enums.UserRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   documentsUploaded?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
@@ -706,7 +706,7 @@ export type UserUncheckedCreateWithoutSigningKeysInput = {
   fullName: string
   email: string
   passwordHash: string
-  role: $Enums.UserRole
+  role?: $Enums.UserRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   documentsUploaded?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
@@ -736,7 +736,7 @@ export type UserUpdateWithoutSigningKeysInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   documentsUploaded?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
@@ -750,7 +750,7 @@ export type UserUncheckedUpdateWithoutSigningKeysInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   documentsUploaded?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -764,7 +764,7 @@ export type UserCreateWithoutAuditLogsInput = {
   fullName: string
   email: string
   passwordHash: string
-  role: $Enums.UserRole
+  role?: $Enums.UserRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   documentsUploaded?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
@@ -778,7 +778,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   fullName: string
   email: string
   passwordHash: string
-  role: $Enums.UserRole
+  role?: $Enums.UserRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   documentsUploaded?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
@@ -808,7 +808,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   documentsUploaded?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
@@ -822,7 +822,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   documentsUploaded?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -970,7 +970,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     fullName: string
     email: string
     passwordHash: string
-    role: $Enums.UserRole
+    role: $Enums.UserRole | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
